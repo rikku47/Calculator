@@ -1,2 +1,2 @@
-# WpfApplication2
+# Calculator
 This should be a simple Calculator.
