@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace WpfApplication2
+namespace Calculator
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
