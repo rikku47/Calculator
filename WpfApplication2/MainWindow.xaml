@@ -5,78 +5,87 @@
         xmlns:local="clr-namespace:Calculator"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        x:Name="window"
+        x:Name="Calculator"
         Title="MainWindow"
-        Width="767"
+        Width="1080"
         WindowStartupLocation="CenterScreen"
-        mc:Ignorable="d">
-    <Window.Resources>
-        <local:SubtractConverter x:Key="SubtractConverter" />
-    </Window.Resources>
-    <Grid Name="grid" RenderTransformOrigin="0.5,0.5">
-        <Grid.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform ScaleX="1" ScaleY="-1" />
-                <SkewTransform AngleX="0" AngleY="0" />
-                <RotateTransform Angle="0" />
-                <TranslateTransform />
-            </TransformGroup>
-        </Grid.RenderTransform>
-        <Button Name="btnX"
-                Margin="0,0,20,20"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="btnX_Click"
-                Content="xCalc"
-                RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="1" ScaleY="-1" />
-                    <SkewTransform AngleX="0" AngleY="0" />
-                    <RotateTransform Angle="0" />
-                    <TranslateTransform />
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Line Name="y"
-              Stroke="#FF00C500"
-              StrokeThickness="1"
-              X1="20"
-              X2="20"
-              Y1="20"
-              Y2="{Binding ActualHeight,
-                           Converter={StaticResource SubtractConverter},
-                           ElementName=y,
-                           Mode=OneWay}" />
-        <Line Name="x"
-              Stroke="#FFFF0606"
-              StrokeThickness="1"
-              X1="20"
-              X2="{Binding ActualWidth,
-                           Converter={StaticResource SubtractConverter},
-                           ElementName=grid,
-                           Mode=OneWay}"
-              Y1="20"
-              Y2="20" />
-        <Line Name="z"
-              RenderTransformOrigin="0,0"
-              Stroke="Black"
-              StrokeThickness="1"
-              X1="20"
-              X2="{Binding ActualHeight,
-                           Converter={StaticResource SubtractConverter},
-                           ElementName=grid,
-                           Mode=OneWay}"
-              Y1="20"
-              Y2="20">
-            <Line.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform />
-                    <RotateTransform Angle="45" />
-                    <TranslateTransform X="20" Y="-8" />
-                </TransformGroup>
-            </Line.RenderTransform>
-        </Line>
+        mc:Ignorable="d" d:DesignHeight="720"
+        Loaded="Calculator_Loaded">
+    <Grid Name="grid">
+        <TabControl>
+            <TabItem Header="Calculator">
+                <Grid x:Name="gCalculator">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                    <ListView x:Name="lvOutput" ItemsSource="{Binding DataContext, ElementName=gCalculator}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ListView ItemsSource="{Binding}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding}" Background="Aqua"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBlock x:Name="tbResult" Grid.Row="1"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnZero" Content="0" Click="Zero"/>
+                        <Button x:Name="btnOne" Content="1" Grid.Column="0" Grid.Row="1" Click="One"/>
+                        <Button x:Name="btnTwo" Content="2" Grid.Column="1" Grid.Row="1" Click="Two"/>
+                        <Button x:Name="btnThree" Content="3" Grid.Column="2" Grid.Row="1" Click="Three"/>
+                        <Button x:Name="btnFour" Content="4" Grid.Column="0" Grid.Row="2" Click="Four"/>
+                        <Button x:Name="btnFive" Content="5" Grid.Column="1" Grid.Row="2" Click="Five"/>
+                        <Button x:Name="btnSix" Content="6" Grid.Column="2" Grid.Row="2" Click="Six"/>
+                        <Button x:Name="btnSeven" Content="7" Grid.Column="0" Grid.Row="3" Click="Seven"/>
+                        <Button x:Name="btnEight" Content="8" Grid.Column="1" Grid.Row="3" Click="Eight"/>
+                        <Button x:Name="btnNine" Content="9" Grid.Column="2" Grid.Row="3" Click="Nine"/>
+                        <Button x:Name="btnAdd" Content="+" Grid.Column="1" Click="GetCalcOperator"/>
+                        <Button x:Name="btnSub" Content="-" Grid.Column="2" Click="GetCalcOperator"/>
+                        <Button x:Name="btnMulti" Content="*" Grid.Column="3" Click="GetCalcOperator"/>
+                        <Button x:Name="btnDevide" Content="/" Grid.Column="3" Grid.Row="1" Click="GetCalcOperator"/>
+                        <Button x:Name="btnDot" Content="." Grid.Column="3" Grid.Row="2" Click="GetSign"/>
+                        <Button x:Name="btnEqual" Content="=" Grid.Column="3" Grid.Row="3" Click="GetSign"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Geometry"/>
+            <TabItem Header="Details">
+                <GroupBox Header="C# - Datas">
+                    <StackPanel x:Name="CSharpDataTypes" Loaded="CSharpDataTypes_Loaded">
+                        <TextBlock x:Name="tbMinByte"/>
+                        <TextBlock x:Name="tbMaxByte"/>
+                        <TextBlock x:Name="tbSByte"/>
+                        <TextBlock x:Name="tbShort"/>
+                        <TextBlock x:Name="tbUShort"/>
+                        <TextBlock x:Name="tbFloat"/>
+                        <TextBlock x:Name="tb"/>
+                        <TextBlock x:Name="tbIntMin"/>
+                        <TextBlock x:Name="tbIntMax"/>
+                        <TextBlock x:Name="tbDoubleMin"/>
+                        <TextBlock x:Name="tbDoubleMax"/>
+                    </StackPanel>
+                </GroupBox>
+            </TabItem>
+        </TabControl>      
     </Grid>
 </Window>

@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Calculator.Math;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Calculator
 {
@@ -16,52 +13,236 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ObservableCollection<ObservableCollection<byte>> numbers;
+        private readonly ObservableCollection<char> operators;
+        private readonly ObservableCollection<int> results;
+
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            numbers = new ObservableCollection<ObservableCollection<byte>>()
+            {
+                new ObservableCollection<byte>()
+            };
+            operators = new ObservableCollection<char>();
+            results = new ObservableCollection<int>();
+            numbers[0].Add(0);
+            gCalculator.DataContext = numbers;
         }
 
-        public void AddNumberToX()
+        #region GetDigits
+        private void Zero(object sender, RoutedEventArgs e)
         {
-            double length = (x.ActualWidth - 20);
+            numbers[(numbers.Count - 1)].Add(0);
+        }
 
-            double height = 20;
+        private void One(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(1);
+        }
 
-            for (int i = 40; i < length; i = i + 20)
+        private void Two(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(2);
+        }
+
+        private void Three(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(3);
+        }
+
+        private void Four(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(4);
+        }
+
+        private void Five(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(5);
+        }
+
+        private void Six(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(6);
+        }
+
+        private void Seven(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(7);
+        }
+
+        private void Eight(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(8);
+        }
+
+        private void Nine(object sender, RoutedEventArgs e)
+        {
+            numbers[(numbers.Count - 1)].Add(9);
+        }
+        #endregion
+
+        private void GetCalcOperator(object sender, RoutedEventArgs e)
+        {
+            switch (((Button)sender).Content.ToString())
             {
-                Line line = new Line();
+                case "+":
+                    operators.Add('+');
 
-                line.X1 = i;
-                line.Y1 = -10;
+                    results.Add(MathEx.Addition());
+                    break;
 
-                line.X2 = i;
-                line.Y2 = 40;
+                case "-":
+                    operators.Add('-');
+                    break;
 
-                line.Stroke = Brushes.Blue;
-                line.StrokeThickness = 1;
+                case "*":
+                    operators.Add('*');
+                    break;
 
-                grid.Children.Add(line);
+                case "/":
+                    operators.Add('/');
+                    break;
             }
 
-            UpdateLayout();
+            numbers.Add(new ObservableCollection<byte>());
         }
 
-        private void btnX_Click(object sender, RoutedEventArgs e)
+        private void GetSign(object sender, RoutedEventArgs e)
         {
-            AddNumberToX();
-        }
-    }
-
-    public class SubtractConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return ((double)value) - 20;
+            switch (((Button)sender).Content.ToString())
+            {
+                case "=":
+                    Calc();
+                    break;
+            }
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        private void Calc()
         {
-            throw new NotSupportedException("Kann nicht konvertiert werden.");
+            int result = 0;
+
+            foreach (var numberList in numbers)
+            {
+                foreach (var number in numberList)
+                {
+                    result += number;
+                }
+            }
+
+            tbResult.Text = result.ToString();
         }
+
+        private void CSharpDataTypes_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (tbMinByte != null)
+                tbMinByte.Text = byte.MinValue.ToString();
+            if (tbMaxByte != null)
+                tbMaxByte.Text = byte.MaxValue.ToString();
+        }
+
+        private void Calculator_Loaded(object sender, RoutedEventArgs e)
+        {
+            //FightForFreedom();
+        }
+
+        #region Nonsense
+
+
+
+        private void FightForFreedom()
+        {
+            List<string> numbersTempBase = new List<string>();
+
+            for (int i = 0; i < 100000000; i++)
+            {
+                numbersTempBase.Add(1.ToString());
+            }
+
+            Stopwatch stopWatch0 = new Stopwatch();
+            stopWatch0.Start();
+
+            foreach (var number in numbersTempBase)
+            {
+                numbers[(numbers.Count - 1)].Add(Convert.ToByte(number));
+            }
+
+            stopWatch0.Stop();
+
+            ObservableCollection<ObservableCollection<byte>> numbersTemp = new ObservableCollection<ObservableCollection<byte>>()
+            {
+                new ObservableCollection<byte>()
+            };
+
+            Stopwatch stopWatch2 = new Stopwatch();
+
+            stopWatch2.Start();
+
+            foreach (var number in numbersTempBase)
+            {
+                switch (number)
+                {
+                    case "0":
+                        numbersTemp[(numbers.Count - 1)].Add(0);
+                        break;
+
+                    case "1":
+                        numbersTemp[(numbers.Count - 1)].Add(1);
+                        break;
+
+                    case "2":
+                        numbersTemp[(numbers.Count - 1)].Add(2);
+                        break;
+
+                    case "3":
+                        numbersTemp[(numbers.Count - 1)].Add(3);
+                        break;
+
+                    case "4":
+                        numbersTemp[(numbers.Count - 1)].Add(4);
+                        break;
+
+                    case "5":
+                        numbersTemp[(numbers.Count - 1)].Add(5);
+                        break;
+
+                    case "6":
+                        numbersTemp[(numbers.Count - 1)].Add(6);
+                        break;
+
+                    case "7":
+                        numbersTemp[(numbers.Count - 1)].Add(7);
+                        break;
+
+                    case "8":
+                        numbersTemp[(numbers.Count - 1)].Add(8);
+                        break;
+
+                    case "9":
+                        numbersTemp[(numbers.Count - 1)].Add(9);
+                        break;
+                }
+            }
+
+            stopWatch2.Stop();
+            var test = 0;
+        }
+
+        #endregion
+
+        #region Cemetery
+        private void GetNumber(object sender, RoutedEventArgs e)
+        {
+            //int test = '1'; for ascii
+
+            //if (numbers.Count == 0)
+            //    numbers.Add(new ObservableCollection<byte>());
+
+            //numbers[(numbers.Count - 1)].Add(Convert.ToByte(((Button)sender).Content));
+        }
+        #endregion
     }
 }
