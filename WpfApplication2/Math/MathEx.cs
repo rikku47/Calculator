@@ -8,9 +8,28 @@ namespace Calculator.Math
 {
     static class MathEx
     {
-        public static int Addition(int num0 = 0, int num1 = 0)
+        public static int Addition(params int[] numbers)
         {
-            return num0 + num1;
+            var sum = 0;
+
+            foreach (var number in numbers)
+            {
+                sum += number;
+            }
+
+            return sum;
+        }
+
+        public static int Addition(List<int> numbers)
+        {
+            var sum = 0;
+
+            foreach (var number in numbers)
+            {
+                sum += number;
+            }
+
+            return sum;
         }
     }
 }

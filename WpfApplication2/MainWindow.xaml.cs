@@ -13,7 +13,7 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ObservableCollection<ObservableCollection<byte>> numbers;
+        private readonly ObservableCollection<ObservableCollection<sbyte>> numbers;
         private readonly ObservableCollection<char> operators;
         private readonly ObservableCollection<int> results;
 
@@ -23,9 +23,9 @@ namespace Calculator
         {
             InitializeComponent();
 
-            numbers = new ObservableCollection<ObservableCollection<byte>>()
+            numbers = new ObservableCollection<ObservableCollection<sbyte>>()
             {
-                new ObservableCollection<byte>()
+                new ObservableCollection<sbyte>()
             };
             operators = new ObservableCollection<char>();
             results = new ObservableCollection<int>();
@@ -92,7 +92,23 @@ namespace Calculator
                 case "+":
                     operators.Add('+');
 
-                    results.Add(MathEx.Addition());
+                    List<int> numbersForCalculation = new List<int>();
+
+                    foreach (var list in numbers)
+                    {
+                        int numberForCalculation = 0;
+
+                        foreach (var number in list)
+                        {
+                            numberForCalculation += number;
+                            numberForCalculation *= 10;
+                        }
+
+                        numberForCalculation /= 10;
+                        numbersForCalculation.Add(numberForCalculation);
+                    }
+
+                    results.Add(MathEx.Addition(numbersForCalculation));
                     break;
 
                 case "-":
@@ -108,7 +124,7 @@ namespace Calculator
                     break;
             }
 
-            numbers.Add(new ObservableCollection<byte>());
+            numbers.Add(new ObservableCollection<sbyte>());
         }
 
         private void GetSign(object sender, RoutedEventArgs e)
@@ -167,7 +183,7 @@ namespace Calculator
 
             foreach (var number in numbersTempBase)
             {
-                numbers[(numbers.Count - 1)].Add(Convert.ToByte(number));
+                numbers[(numbers.Count - 1)].Add(Convert.ToSByte(number));
             }
 
             stopWatch0.Stop();
