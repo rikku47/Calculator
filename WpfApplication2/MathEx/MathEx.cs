@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculator.Math
+namespace Calculator.MathEx
 {
     static class MathEx
     {
@@ -18,6 +18,7 @@ namespace Calculator.Math
             }
 
             return sum;
+            
         }
 
         public static int Addition(List<int> numbers)
@@ -30,6 +31,21 @@ namespace Calculator.Math
             }
 
             return sum;
+        }
+
+        internal static int Multiply(int v)
+        {
+            return 0;
+        }
+
+        internal static int Subtract(int v)
+        {
+            return 0;
+        }
+
+        internal static int Divide(int v)
+        {
+            return 0;
         }
     }
 }

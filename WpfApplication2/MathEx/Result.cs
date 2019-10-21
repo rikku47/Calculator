@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculator.Math
+namespace Calculator.MathEx
 {
-    public class Term
+    class Result
     {
         
     }

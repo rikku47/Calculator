@@ -6,11 +6,11 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Name="Calculator"
-        Title="MainWindow"
+        Title="Caculator"
         Width="1080"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d" d:DesignHeight="720"
-        Loaded="Calculator_Loaded">
+        Loaded="Calculator_Loaded" KeyUp="Calculator_KeyUp">
     <Grid Name="grid">
         <TabControl>
             <TabItem Header="Calculator">
@@ -20,15 +20,24 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <ListView x:Name="lvOutput" ItemsSource="{Binding DataContext, ElementName=gCalculator}">
+                    <ListView x:Name="lvOutput">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ListView ItemsSource="{Binding}">
+                                <ListView ItemsSource="{Binding DigitGroups}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding}" Background="Aqua"/>
-                                            </StackPanel>
+                                            <ListView ItemsSource="{Binding}">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding}"/>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Orientation="Horizontal"/>
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                            </ListView>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>

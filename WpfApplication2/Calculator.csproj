@@ -81,9 +81,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Math\MathEx.cs" />
-    <Compile Include="Math\Result.cs" />
-    <Compile Include="Math\Term.cs" />
+    <Compile Include="MathEx\MathEx.cs" />
+    <Compile Include="MathEx\Result.cs" />
+    <Compile Include="MathEx\Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
