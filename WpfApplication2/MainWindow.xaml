@@ -23,24 +23,27 @@
                     <ListView x:Name="lvOutput">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ListView ItemsSource="{Binding DigitGroups}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <ListView ItemsSource="{Binding}">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding}"/>
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                                <ListView.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <WrapPanel Orientation="Horizontal"/>
-                                                    </ItemsPanelTemplate>
-                                                </ListView.ItemsPanel>
-                                            </ListView>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding OperatorSign}"/>
+                                    <ListView ItemsSource="{Binding DigitGroups}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ListView ItemsSource="{Binding}">
+                                                    <ListView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding}"/>
+                                                        </DataTemplate>
+                                                    </ListView.ItemTemplate>
+                                                    <ListView.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <WrapPanel Orientation="Horizontal"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ListView.ItemsPanel>
+                                                </ListView>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

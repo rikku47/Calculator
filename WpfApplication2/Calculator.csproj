@@ -84,6 +84,8 @@
     <Compile Include="MathEx\MathEx.cs" />
     <Compile Include="MathEx\Result.cs" />
     <Compile Include="MathEx\Term.cs" />
+    <Compile Include="MathEx\TermExpressions.cs" />
+    <Compile Include="MathEx\TermListService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

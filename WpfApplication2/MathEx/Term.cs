@@ -1,52 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Calculator.MathEx
 {
-    public class Term
+    public class Term : INotifyPropertyChanged
     {
+
+        private char _operator;
+        private char _valueOperator;
+        private ObservableCollection<sbyte> _digitGroup;
+
         public ObservableCollection<ObservableCollection<sbyte>> DigitGroups { get; set; }
-        public ObservableCollection<sbyte> DigitGroup { get; set; }
+
+        public ObservableCollection<sbyte> DigitGroup
+        {
+            get
+            {
+                return _digitGroup;
+
+            }
+            set
+            {
+                _digitGroup = value;
+            }
+        }
+
         public ObservableCollection<int> Numbers { get; private set; }
         public int Number { get; set; }
         public ObservableCollection<int> Results { get; private set; }
-        public string OperatorSign { get; set; }
+
+        public char OperatorSign
+        {
+            get
+            {
+                return _operator;
+            }
+            set
+            {
+                _operator = value;
+                Changed(nameof(OperatorSign));
+            }
+        }
+
+        public char ValueOperator { get => _valueOperator; set => _valueOperator = value; }
 
         public Term()
         {
-            DigitGroup = new ObservableCollection<sbyte>();
-            DigitGroup.CollectionChanged += DigitGroup_CollectionChanged;
+            _digitGroup = new ObservableCollection<sbyte>
+            {
+                0
+            };
+
+            _digitGroup.CollectionChanged += DigitGroup_CollectionChanged;
 
             DigitGroups = new ObservableCollection<ObservableCollection<sbyte>>
             {
-                DigitGroup
+                _digitGroup
             };
 
             DigitGroups.CollectionChanged += DigitGroups_CollectionChanged;
-            
+
             Numbers = new ObservableCollection<int>();
             Numbers.CollectionChanged += Numbers_CollectionChanged;
         }
 
-        public Term(sbyte digit) : this() 
+        public Term(sbyte digit) : this()
         {
-            DigitGroup.Add(digit);
+            _digitGroup.Add(digit);
         }
 
         public Term(sbyte digit, char operatorSign) : this(digit)
         {
-            OperatorSign = operatorSign.ToString();
+            OperatorSign = operatorSign;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         void BuildInteger()
         {
             Number = 0;
 
-            foreach (var digit in DigitGroup)
+            foreach (var digit in _digitGroup)
             {
                 Number += digit;
                 Number *= 10;
@@ -59,7 +98,7 @@ namespace Calculator.MathEx
         {
             int index = e.NewStartingIndex;
 
-            DigitGroup = DigitGroups[index];
+            _digitGroup = DigitGroups[index];
             //Number = Numbers[index];
         }
 
@@ -67,7 +106,7 @@ namespace Calculator.MathEx
         {
             BuildInteger();
 
-            if(true)
+            if (true)
             {
                 //DigitGroup = null;
                 //Number = Numbers[0];
@@ -78,5 +117,12 @@ namespace Calculator.MathEx
         {
             Number = 0;
         }
+
+        private void Changed(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
     }
 }

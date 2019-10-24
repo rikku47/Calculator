@@ -13,75 +13,68 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ObservableCollection<Term> Terms;
-        private Term Term;
+        //private readonly ObservableCollection<Term> Terms;
+        private readonly TermListService TermListService;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            Term = new Term(0);
+            TermListService = new TermListService();
 
-            Terms = new ObservableCollection<Term>
-            {
-                Term
-            };
-            //Term = new Term();
-            //Terms.Add(Term);
-
-            lvOutput.ItemsSource = Terms;
+            lvOutput.ItemsSource = TermListService.Terms;
         }
 
         #region GetDigits
         private void Zero(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(0);
+            TermListService.Term.DigitGroup.Add(0);
         }
 
         private void One(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(1);
+            TermListService.Term.DigitGroup.Add(1);
         }
 
         private void Two(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(2);
+            TermListService.Term.DigitGroup.Add(2);
         }
 
         private void Three(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(3);
+            TermListService.Term.DigitGroup.Add(3);
         }
 
         private void Four(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(4);
+            TermListService.Term.DigitGroup.Add(4);
         }
 
         private void Five(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(5);
+            TermListService.Term.DigitGroup.Add(5);
         }
 
         private void Six(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(6);
+            TermListService.Term.DigitGroup.Add(6);
         }
 
         private void Seven(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(7);
+            TermListService.Term.DigitGroup.Add(7);
             
         }
 
         private void Eight(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(8);
+            TermListService.Term.DigitGroup.Add(8);
         }
 
         private void Nine(object sender, RoutedEventArgs e)
         {
-            Term.DigitGroup.Add(9);
+            TermListService.Term.DigitGroup.Add(9);
         }
         #endregion
 
@@ -90,28 +83,31 @@ namespace Calculator
             switch (((Button)sender).Content.ToString())
             {
                 case "+":
-                    Term.OperatorSign = "+";
+                    TermListService.Term.OperatorSign = '+';
                     //Term.Results.Add(MathEx.Addition(1));
-                    Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
 
                 case "-":
-                    Terms[0] = null;
-                    //operators.Add('-');
+                    TermListService.Term.OperatorSign = '-';
+                    //Term.Results.Add(MathEx.Addition(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
 
                 case "*":
-                    Terms[0] = null;
-                    //operators.Add('*');
+                    TermListService.Term.OperatorSign = '*';
+                    //Term.Results.Add(MathEx.Addition(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
 
                 case "/":
-                    Terms[0] = null;
-                    //operators.Add('/');
+                    TermListService.Term.OperatorSign = '/';
+                    //Term.Results.Add(MathEx.Addition(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
             }
 
-            Terms.Add(new Term());
+            TermListService.Terms.Add(new Term());
         }
 
         private void GetSign(object sender, RoutedEventArgs e)
@@ -173,49 +169,48 @@ namespace Calculator
                 switch (number)
                 {
                     case "0":
-                        numbersTemp[(Terms.Count - 1)].Add(0);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(0);
                         break;
 
                     case "1":
-                        numbersTemp[(Terms.Count - 1)].Add(1);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(1);
                         break;
 
                     case "2":
-                        numbersTemp[(Terms.Count - 1)].Add(2);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(2);
                         break;
 
                     case "3":
-                        numbersTemp[(Terms.Count - 1)].Add(3);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(3);
                         break;
 
                     case "4":
-                        numbersTemp[(Terms.Count - 1)].Add(4);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(4);
                         break;
 
                     case "5":
-                        numbersTemp[(Terms.Count - 1)].Add(5);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(5);
                         break;
 
                     case "6":
-                        numbersTemp[(Terms.Count - 1)].Add(6);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(6);
                         break;
 
                     case "7":
-                        numbersTemp[(Terms.Count - 1)].Add(7);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(7);
                         break;
 
                     case "8":
-                        numbersTemp[(Terms.Count - 1)].Add(8);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(8);
                         break;
 
                     case "9":
-                        numbersTemp[(Terms.Count - 1)].Add(9);
+                        numbersTemp[(TermListService.Terms.Count - 1)].Add(9);
                         break;
                 }
             }
 
             stopWatch2.Stop();
-            var test = 0;
         }
 
         #endregion
@@ -319,34 +314,34 @@ namespace Calculator
                 case System.Windows.Input.Key.Help:
                     break;
                 case System.Windows.Input.Key.D0:
-                    Term.DigitGroup.Add(0);
+                    TermListService.Term.DigitGroup.Add(0);
                     break;
                 case System.Windows.Input.Key.D1:
-                    Term.DigitGroup.Add(1);
+                    TermListService.Term.DigitGroup.Add(1);
                     break;
                 case System.Windows.Input.Key.D2:
-                    Term.DigitGroup.Add(2);
+                    TermListService.Term.DigitGroup.Add(2);
                     break;
                 case System.Windows.Input.Key.D3:
-                    Term.DigitGroup.Add(3);
+                    TermListService.Term.DigitGroup.Add(3);
                     break;
                 case System.Windows.Input.Key.D4:
-                    Term.DigitGroup.Add(4);
+                    TermListService.Term.DigitGroup.Add(4);
                     break;
                 case System.Windows.Input.Key.D5:
-                    Term.DigitGroup.Add(5);
+                    TermListService.Term.DigitGroup.Add(5);
                     break;
                 case System.Windows.Input.Key.D6:
-                    Term.DigitGroup.Add(6);
+                    TermListService.Term.DigitGroup.Add(6);
                     break;
                 case System.Windows.Input.Key.D7:
-                    Term.DigitGroup.Add(7);
+                    TermListService.Term.DigitGroup.Add(7);
                     break;
                 case System.Windows.Input.Key.D8:
-                    Term.DigitGroup.Add(8);
+                    TermListService.Term.DigitGroup.Add(8);
                     break;
                 case System.Windows.Input.Key.D9:
-                    Term.DigitGroup.Add(9);
+                    TermListService.Term.DigitGroup.Add(9);
                     break;
                 case System.Windows.Input.Key.A:
                     break;
@@ -409,58 +404,58 @@ namespace Calculator
                 case System.Windows.Input.Key.Sleep:
                     break;
                 case System.Windows.Input.Key.NumPad0:
-                    Term.DigitGroup.Add(0);
+                    TermListService.Term.DigitGroup.Add(0);
                     break;
                 case System.Windows.Input.Key.NumPad1:
-                    Term.DigitGroup.Add(1);
+                    TermListService.Term.DigitGroup.Add(1);
                     break;
                 case System.Windows.Input.Key.NumPad2:
-                    Term.DigitGroup.Add(2);
+                    TermListService.Term.DigitGroup.Add(2);
                     break;
                 case System.Windows.Input.Key.NumPad3:
-                    Term.DigitGroup.Add(3);
+                    TermListService.Term.DigitGroup.Add(3);
                     break;
                 case System.Windows.Input.Key.NumPad4:
-                    Term.DigitGroup.Add(4);
+                    TermListService.Term.DigitGroup.Add(4);
                     break;
                 case System.Windows.Input.Key.NumPad5:
-                    Term.DigitGroup.Add(5);
+                    TermListService.Term.DigitGroup.Add(5);
                     break;
                 case System.Windows.Input.Key.NumPad6:
-                    Term.DigitGroup.Add(6);
+                    TermListService.Term.DigitGroup.Add(6);
                     break;
                 case System.Windows.Input.Key.NumPad7:
-                    Term.DigitGroup.Add(7);
+                    TermListService.Term.DigitGroup.Add(7);
                     break;
                 case System.Windows.Input.Key.NumPad8:
-                    Term.DigitGroup.Add(8);
+                    TermListService.Term.DigitGroup.Add(8);
                     break;
                 case System.Windows.Input.Key.NumPad9:
-                    Term.DigitGroup.Add(9);
+                    TermListService.Term.DigitGroup.Add(9);
                     break;
                 case System.Windows.Input.Key.Multiply:
-                    Term.OperatorSign = "*";
-                    Term.Results.Add(MathEx.MathEx.Multiply(1));
-                    Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    TermListService.Term.OperatorSign = '*';
+                    TermListService.Term.Results.Add(MathEx.MathEx.Multiply(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
                 case System.Windows.Input.Key.Add:
-                    Term.OperatorSign = "+";
-                    Term.Results.Add(MathEx.MathEx.Addition(1));
-                    Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    TermListService.Term.OperatorSign = '+';
+                    TermListService.Term.Results.Add(MathEx.MathEx.Addition(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
                 case System.Windows.Input.Key.Separator:
                     break;
                 case System.Windows.Input.Key.Subtract:
-                    Term.OperatorSign = "-";
-                    Term.Results.Add(MathEx.MathEx.Subtract(1));
-                    Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    TermListService.Term.OperatorSign = '-';
+                    TermListService.Term.Results.Add(MathEx.MathEx.Subtract(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
                 case System.Windows.Input.Key.Decimal:
                     break;
                 case System.Windows.Input.Key.Divide:
-                    Term.OperatorSign = "/";
-                    Term.Results.Add(MathEx.MathEx.Divide(1));
-                    Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    TermListService.Term.OperatorSign = '/';
+                    TermListService.Term.Results.Add(MathEx.MathEx.Divide(1));
+                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
                 case System.Windows.Input.Key.F1:
                     break;
