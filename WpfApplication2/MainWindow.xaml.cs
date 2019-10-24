@@ -23,6 +23,8 @@ namespace Calculator
             TermListService = new TermListService();
 
             lvOutput.ItemsSource = TermListService.Terms;
+
+            tbResult.Text = 0.ToString();
         }
 
         #region GetDigits
@@ -84,29 +86,26 @@ namespace Calculator
             {
                 case "+":
                     TermListService.Term.OperatorSign = '+';
-                    //Term.Results.Add(MathEx.Addition(1));
-                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    tbResult.Text =(Convert.ToInt32(tbResult.Text) + TermListService.Term.Number).ToString();
                     break;
 
                 case "-":
                     TermListService.Term.OperatorSign = '-';
-                    //Term.Results.Add(MathEx.Addition(1));
-                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    tbResult.Text = (Convert.ToInt32(tbResult.Text) - TermListService.Term.Number).ToString();            
                     break;
 
                 case "*":
                     TermListService.Term.OperatorSign = '*';
-                    //Term.Results.Add(MathEx.Addition(1));
-                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    tbResult.Text = (Convert.ToInt32(tbResult.Text) * TermListService.Term.Number).ToString();
                     break;
 
                 case "/":
                     TermListService.Term.OperatorSign = '/';
-                    //Term.Results.Add(MathEx.Addition(1));
-                    TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
+                    tbResult.Text = (Convert.ToInt32(tbResult.Text) / TermListService.Term.Number).ToString();
                     break;
             }
 
+            TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
             TermListService.Terms.Add(new Term());
         }
 
@@ -440,7 +439,7 @@ namespace Calculator
                     break;
                 case System.Windows.Input.Key.Add:
                     TermListService.Term.OperatorSign = '+';
-                    TermListService.Term.Results.Add(MathEx.MathEx.Addition(1));
+                    //TermListService.Term.Results.Add(MathEx.MathEx.Addition(1));
                     TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
                     break;
                 case System.Windows.Input.Key.Separator:

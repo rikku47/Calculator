@@ -23,6 +23,7 @@ namespace Calculator.MathEx
             Terms.CollectionChanged += Terms_CollectionChanged;
 
             Term = new Term();
+            Terms.Add(Term);
         }
 
         private void Terms_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

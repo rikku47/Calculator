@@ -8,13 +8,14 @@ namespace Calculator.MathEx
 {
     static class MathEx
     {
-        public static int Addition(params int[] numbers)
+        public static dynamic Addition(List<Term> terms)
         {
             var sum = 0;
 
-            foreach (var number in numbers)
+            foreach (var term in terms)
             {
-                sum += number;
+
+                //sum += term.DigitGroup;
             }
 
             return sum;
