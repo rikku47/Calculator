@@ -23,99 +23,85 @@ namespace Calculator
             TermListService = new TermListService();
 
             lvOutput.ItemsSource = TermListService.Terms;
-
-            tbResult.Text = 0.ToString();
+            GetCurrentResults();
         }
 
+        private void GetCurrentResults()
+        {
+            tbResultInteger.Text = TermListService.Results[(TermListService.Results.Count - 1)].Integer.ToString();
+            tbResultFloat.Text = TermListService.Results[(TermListService.Results.Count - 1)].Float.ToString();
+            tbResultDouble.Text = TermListService.Results[(TermListService.Results.Count - 1)].Double.ToString();
+        }
+
+        #region Methods
         #region GetDigits
         private void Zero(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(0);
         }
-
         private void One(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(1);
         }
-
         private void Two(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(2);
         }
-
         private void Three(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(3);
         }
-
         private void Four(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(4);
         }
-
         private void Five(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(5);
         }
-
         private void Six(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(6);
         }
-
         private void Seven(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(7);
-            
         }
-
         private void Eight(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(8);
         }
-
         private void Nine(object sender, RoutedEventArgs e)
         {
             TermListService.Term.DigitGroup.Add(9);
         }
         #endregion
 
-        private void GetCalcOperator(object sender, RoutedEventArgs e)
+        private void Add(object sender, RoutedEventArgs e)
         {
-            switch (((Button)sender).Content.ToString())
-            {
-                case "+":
-                    TermListService.Term.OperatorSign = '+';
-                    tbResult.Text =(Convert.ToInt32(tbResult.Text) + TermListService.Term.Number).ToString();
-                    break;
-
-                case "-":
-                    TermListService.Term.OperatorSign = '-';
-                    tbResult.Text = (Convert.ToInt32(tbResult.Text) - TermListService.Term.Number).ToString();            
-                    break;
-
-                case "*":
-                    TermListService.Term.OperatorSign = '*';
-                    tbResult.Text = (Convert.ToInt32(tbResult.Text) * TermListService.Term.Number).ToString();
-                    break;
-
-                case "/":
-                    TermListService.Term.OperatorSign = '/';
-                    tbResult.Text = (Convert.ToInt32(tbResult.Text) / TermListService.Term.Number).ToString();
-                    break;
-            }
-
+            TermListService.Term.OperatorSign = '+';
+            int tempInteger = TermListService.Term.NumbersOfInteger[(TermListService.Term.NumbersOfInteger.Count - 2)] + TermListService.Term.NumbersOfInteger[(TermListService.Term.NumbersOfInteger.Count - 1)];
+            float tempFloat = 0;
+            double tempDouble = 0;
+            TermListService.Results.Add(new Result(tempInteger, tempFloat, tempDouble));
             TermListService.Term.DigitGroups.Add(new ObservableCollection<sbyte>());
             TermListService.Terms.Add(new Term());
+            GetCurrentResults();
         }
-
-        private void GetSign(object sender, RoutedEventArgs e)
+        private void Sub(object sender, RoutedEventArgs e)
         {
-            switch (((Button)sender).Content.ToString())
-            {
-                case "=":
-                    break;
-            }
+        }
+        private void Mul(object sender, RoutedEventArgs e)
+        {
+        }
+        private void Div(object sender, RoutedEventArgs e)
+        {
+        }
+        private void Dot(object sender, RoutedEventArgs e)
+        {
+        }
+        private void Equal(object sender, RoutedEventArgs e)
+        {
         }
 
         private void CSharpDataTypes_Loaded(object sender, RoutedEventArgs e)
@@ -129,12 +115,10 @@ namespace Calculator
         private void Calculator_Loaded(object sender, RoutedEventArgs e)
         {
             //FightForFreedom();
-        }
+        } 
+        #endregion
 
         #region Nonsense
-
-
-
         private void FightForFreedom()
         {
             List<string> numbersTempBase = new List<string>();
@@ -211,7 +195,6 @@ namespace Calculator
 
             stopWatch2.Stop();
         }
-
         #endregion
 
         #region Cemetery

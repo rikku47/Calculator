@@ -47,7 +47,11 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <TextBlock x:Name="tbResult" Grid.Row="1"/>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock x:Name="tbResultInteger" />
+                        <TextBlock x:Name="tbResultFloat" />
+                        <TextBlock x:Name="tbResultDouble" />
+                    </StackPanel>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -71,12 +75,12 @@
                         <Button x:Name="btnSeven" Content="7" Grid.Column="0" Grid.Row="3" Click="Seven"/>
                         <Button x:Name="btnEight" Content="8" Grid.Column="1" Grid.Row="3" Click="Eight"/>
                         <Button x:Name="btnNine" Content="9" Grid.Column="2" Grid.Row="3" Click="Nine"/>
-                        <Button x:Name="btnAdd" Content="+" Grid.Column="1" Click="GetCalcOperator"/>
-                        <Button x:Name="btnSub" Content="-" Grid.Column="2" Click="GetCalcOperator"/>
-                        <Button x:Name="btnMulti" Content="*" Grid.Column="3" Click="GetCalcOperator"/>
-                        <Button x:Name="btnDevide" Content="/" Grid.Column="3" Grid.Row="1" Click="GetCalcOperator"/>
-                        <Button x:Name="btnDot" Content="." Grid.Column="3" Grid.Row="2" Click="GetSign"/>
-                        <Button x:Name="btnEqual" Content="=" Grid.Column="3" Grid.Row="3" Click="GetSign"/>
+                        <Button x:Name="btnAdd" Content="+" Grid.Column="1" Click="Add"/>
+                        <Button x:Name="btnSub" Content="-" Grid.Column="2" Click="Sub"/>
+                        <Button x:Name="btnMulti" Content="*" Grid.Column="3" Click="Mul"/>
+                        <Button x:Name="btnDevide" Content="/" Grid.Column="3" Grid.Row="1" Click="Div"/>
+                        <Button x:Name="btnDot" Content="." Grid.Column="3" Grid.Row="2" Click="Dot"/>
+                        <Button x:Name="btnEqual" Content="=" Grid.Column="3" Grid.Row="3" Click="Equal"/>
                     </Grid>
                 </Grid>
             </TabItem>

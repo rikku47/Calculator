@@ -12,6 +12,7 @@ namespace Calculator.MathEx
         public Term Term { get; set; }
 
         public ObservableCollection<Term> Terms { get; }
+        public ObservableCollection<Result> Results { get; }
 
         public TermListService()
         {
@@ -24,6 +25,11 @@ namespace Calculator.MathEx
 
             Term = new Term();
             Terms.Add(Term);
+
+            Results = new ObservableCollection<Result>
+            {
+                new Result()
+            };
         }
 
         private void Terms_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
